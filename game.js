@@ -86,20 +86,23 @@ window.onload = function() {
             }
         }
     };
-        // Add the 'play' state to the game and start it
-        game.state.add("Play", play);
-        game.state.start("Play");
-        // Function to update the score display
-        function updateScore() {
-            scoreText.text = "Score: " + score + "\nBest: " + topScore;
-        }
-    
-        // Function to handle bird flap action
-        function flap() {
-            bird.animations.play("flap");
-            bird.body.velocity.y = -birdFlapPower;
-        }
-            // Function to add pipes to the game
+
+    // Add the 'play' state to the game and start it
+    game.state.add("Play", play);
+    game.state.start("Play");
+
+    // Function to update the score display
+    function updateScore() {
+        scoreText.text = "Score: " + score + "\nBest: " + topScore;
+    }
+
+    // Function to handle bird flap action
+    function flap() {
+        bird.animations.play("flap");
+        bird.body.velocity.y = -birdFlapPower;
+    }
+
+    // Function to add pipes to the game
     function addPipe(screenWidth) {
         var pipeHolePosition = game.rnd.between(50, 430 - pipeHole);
         var upperPipe = new Pipe(game, screenWidth, pipeHolePosition - 480, -birdSpeed);
@@ -109,12 +112,14 @@ window.onload = function() {
         game.add.existing(lowerPipe);
         pipeGroup.add(lowerPipe);
     }
+
     // Function to handle game over scenario
     function die() {
         topScore = Math.max(score, topScore);
         localStorage.setItem("topFlappyScore", topScore);
         game.state.start("Play");
     }
+
     // Define the 'Pipe' constructor function
     Pipe = function(game, x, y, speed) {
         Phaser.Sprite.call(this, game, x, y, "pipe");
@@ -123,5 +128,19 @@ window.onload = function() {
         this.giveScore = true;
     };
 
-    
-}
+    // Set up the prototype chain for 'Pipe' objects
+    Pipe.prototype = Object.create(Phaser.Sprite.prototype);
+    Pipe.prototype.constructor = Pipe;
+
+    // Define the update method for 'Pipe' objects
+    Pipe.prototype.update = function() {
+        if (this.x + this.width < bird.x && this.giveScore) {
+            score += 0.5;
+            updateScore();
+            this.giveScore = false;
+        }
+        if (this.x < -this.width) {
+            this.destroy();
+        }
+    };
+};
