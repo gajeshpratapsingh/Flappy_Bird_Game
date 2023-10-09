@@ -86,4 +86,18 @@ window.onload = function() {
             }
         }
     };
+        // Add the 'play' state to the game and start it
+        game.state.add("Play", play);
+        game.state.start("Play");
+        // Function to update the score display
+        function updateScore() {
+            scoreText.text = "Score: " + score + "\nBest: " + topScore;
+        }
+    
+        // Function to handle bird flap action
+        function flap() {
+            bird.animations.play("flap");
+            bird.body.velocity.y = -birdFlapPower;
+        }
+    
 }
