@@ -55,27 +55,35 @@ window.onload = function() {
             bird.scale.setTo(birdScale, birdScale);
             game.physics.arcade.enable(bird);
             bird.body.gravity.y = birdGravity;
-                        // Define the flapping animation for the bird
-                        bird.animations.add("flap", [0, 1, 2], 7, true);
 
-                        // Handle bird flap on input (click/tap)
-                        game.input.onDown.add(flap, this);
-            
-                        // Calculate the screen width for full-screen mode
-                        var screenWidth = game.width;
-            
-                        // Create the first pipe and set up a repeating timer for adding pipes
-                        game.time.events.loop(pipeInterval, function() {
-                            addPipe(screenWidth);
-                        });
-                        addPipe(screenWidth);
-                        
+            // Define the flapping animation for the bird
+            bird.animations.add("flap", [0, 1, 2], 7, true);
+
+            // Handle bird flap on input (click/tap)
+            game.input.onDown.add(flap, this);
+
+            // Calculate the screen width for full-screen mode
+            var screenWidth = game.width;
+
+            // Create the first pipe and set up a repeating timer for adding pipes
+            game.time.events.loop(pipeInterval, function() {
+                addPipe(screenWidth);
+            });
+            addPipe(screenWidth);
+
             // Create the ground sprite and configure it
             ground = game.add.sprite(0, game.height - 20, "ground");
             ground.scale.setTo(game.width, 1);
             game.physics.arcade.enable(ground);
             ground.body.immovable = true;
         },
-
-    }
+        update: function() {
+            // Check for collisions with pipes and ground, and handle bird out-of-bounds
+            game.physics.arcade.collide(bird, pipeGroup, die);
+            game.physics.arcade.collide(bird, ground, die);
+            if (bird.y > game.height) {
+                die();
+            }
+        }
+    };
 }
