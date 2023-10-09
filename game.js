@@ -29,4 +29,33 @@ window.onload = function() {
             game.load.image("ground", "assets/fence.png");
         },
 
+        create: function() {
+            // Set the background color
+            game.stage.backgroundColor = "#87CEEB";
+
+            // Enable arcade physics
+            game.physics.startSystem(Phaser.Physics.ARCADE);
+
+            // Create a group for pipes
+            pipeGroup = game.add.group();
+
+            // Initialize score and get the top score from local storage
+            score = 0;
+            topScore = parseInt(localStorage.getItem("topFlappyScore")) || 0;
+
+            // Create and display the score text
+            scoreText = game.add.text(10, 10, "-", {
+                font: "bold 16px Arial",
+                fill: "#ffffff"
+            });
+            updateScore();
+
+            // Create the bird sprite and configure it
+            bird = game.add.sprite(200, 240, "bird");
+            bird.anchor.set(0.5);
+            bird.scale.setTo(birdScale, birdScale);
+            game.physics.arcade.enable(bird);
+            bird.body.gravity.y = birdGravity;
+
+
 }
