@@ -20,7 +20,7 @@ window.onload = function() {
     // The 'play' state of the game
     var play = function(game) {}
 
-    // Define functions for preloading, creating, and updating the game state
+    //  Functions for preloading, creating, and updating the game state
     play.prototype = {
         preload: function() {
             // Load game assets (bird sprite, pipe image, ground image)
