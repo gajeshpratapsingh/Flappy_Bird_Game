@@ -1,9 +1,9 @@
 // This code is wrapped in a window.onload function to ensure it runs when the page is fully loaded.
 window.onload = function() {
-     // Create a Phaser game instance with a specified size, rendering method, and target div.
+     // Phaser game instance with a specified size, rendering method, and target div.
      var game = new Phaser.Game('100%', '99%', Phaser.AUTO, 'gameDiv');
 
-     // Define various game parameters
+     // various game parameters
     var bird;
     var birdGravity = 800;
     var birdSpeed = 125;
@@ -16,4 +16,8 @@ window.onload = function() {
     var scoreText;
     var topScore;
     var ground;
+
+    // The 'play' state of the game
+    var play = function(game) {}
+
 }
