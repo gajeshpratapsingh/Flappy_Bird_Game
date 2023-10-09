@@ -115,6 +115,13 @@ window.onload = function() {
         localStorage.setItem("topFlappyScore", topScore);
         game.state.start("Play");
     }
+    // Define the 'Pipe' constructor function
+    Pipe = function(game, x, y, speed) {
+        Phaser.Sprite.call(this, game, x, y, "pipe");
+        game.physics.enable(this, Phaser.Physics.ARCADE);
+        this.body.velocity.x = speed;
+        this.giveScore = true;
+    };
 
     
 }
