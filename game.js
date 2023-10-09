@@ -1,9 +1,9 @@
 // This code is wrapped in a window.onload function to ensure it runs when the page is fully loaded.
 window.onload = function() {
-     // Phaser game instance with a specified size, rendering method, and target div.
-     var game = new Phaser.Game('100%', '99%', Phaser.AUTO, 'gameDiv');
+    // Create a Phaser game instance with a specified size, rendering method, and target div.
+    var game = new Phaser.Game('100%', '99%', Phaser.AUTO, 'gameDiv');
 
-     // various game parameters
+    // Define various game parameters
     var bird;
     var birdGravity = 800;
     var birdSpeed = 125;
@@ -17,10 +17,10 @@ window.onload = function() {
     var topScore;
     var ground;
 
-    // The 'play' state of the game
+    // Define the 'play' state of the game
     var play = function(game) {}
 
-    //  Functions for preloading, creating, and updating the game state
+    // Define functions for preloading, creating, and updating the game state
     play.prototype = {
         preload: function() {
             // Load game assets (bird sprite, pipe image, ground image)
@@ -28,7 +28,6 @@ window.onload = function() {
             game.load.image("pipe", "assets/pipe.png");
             game.load.image("ground", "assets/fence.png");
         },
-
         create: function() {
             // Set the background color
             game.stage.backgroundColor = "#87CEEB";
@@ -56,6 +55,21 @@ window.onload = function() {
             bird.scale.setTo(birdScale, birdScale);
             game.physics.arcade.enable(bird);
             bird.body.gravity.y = birdGravity;
+                        // Define the flapping animation for the bird
+                        bird.animations.add("flap", [0, 1, 2], 7, true);
 
-
+                        // Handle bird flap on input (click/tap)
+                        game.input.onDown.add(flap, this);
+            
+                        // Calculate the screen width for full-screen mode
+                        var screenWidth = game.width;
+            
+                        // Create the first pipe and set up a repeating timer for adding pipes
+                        game.time.events.loop(pipeInterval, function() {
+                            addPipe(screenWidth);
+                        });
+                        addPipe(screenWidth);
+            
+        }
+    }
 }
