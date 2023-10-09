@@ -69,7 +69,13 @@ window.onload = function() {
                             addPipe(screenWidth);
                         });
                         addPipe(screenWidth);
-            
-        }
+                        
+            // Create the ground sprite and configure it
+            ground = game.add.sprite(0, game.height - 20, "ground");
+            ground.scale.setTo(game.width, 1);
+            game.physics.arcade.enable(ground);
+            ground.body.immovable = true;
+        },
+
     }
 }
