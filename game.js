@@ -99,5 +99,16 @@ window.onload = function() {
             bird.animations.play("flap");
             bird.body.velocity.y = -birdFlapPower;
         }
+            // Function to add pipes to the game
+    function addPipe(screenWidth) {
+        var pipeHolePosition = game.rnd.between(50, 430 - pipeHole);
+        var upperPipe = new Pipe(game, screenWidth, pipeHolePosition - 480, -birdSpeed);
+        game.add.existing(upperPipe);
+        pipeGroup.add(upperPipe);
+        var lowerPipe = new Pipe(game, screenWidth, pipeHolePosition + pipeHole, -birdSpeed);
+        game.add.existing(lowerPipe);
+        pipeGroup.add(lowerPipe);
+    }
+
     
 }
