@@ -109,6 +109,12 @@ window.onload = function() {
         game.add.existing(lowerPipe);
         pipeGroup.add(lowerPipe);
     }
+    // Function to handle game over scenario
+    function die() {
+        topScore = Math.max(score, topScore);
+        localStorage.setItem("topFlappyScore", topScore);
+        game.state.start("Play");
+    }
 
     
 }
